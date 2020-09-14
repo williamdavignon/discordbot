@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 with open("token.txt", "r") as tokenfile:
     for line in tokenfile:
         token = line
-    
 client = discord.Client()
 server = "745059328674758688"
 bot = commands.Bot(command_prefix="!")
