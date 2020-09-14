@@ -2,7 +2,10 @@ import discord, os, json, requests
 from discord.ext import commands
 from bs4 import BeautifulSoup
 
-token = "NzUxNDM3Mzc4ODk1MzQ3NzYz.X1JEmA.vsQv47irDSyMFpk8ZyHRvKHzJiM"
+with open("token.txt", "r") as tokenfile:
+    for line in tokenfile:
+        token = line
+    
 client = discord.Client()
 server = "745059328674758688"
 bot = commands.Bot(command_prefix="!")

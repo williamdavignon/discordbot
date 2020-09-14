@@ -10,16 +10,24 @@ cookie = {"cookie": """Indicative_a38719f2-d919-446b-b2e3-0da55a22a29a="%7B%22de
 # print(x[3])
 # x = x[3]
 
+# token test
+with open("token.txt", "r") as tokenfile:
+    for line in tokenfile:
+        token = line
+
+print(token)
+
+
 # status code test
 
-url1 = "https://colonist.io/api/profile/GrandDude"
-url2 = "https://colonist.io/api/profile/aodugnubqanifs"
-site = requests.get(url1, cookies = cookie)
-print(site.status_code)
-print(site)
-site = requests.get(url2, cookies = cookie)
-print(site.status_code)
-print(site)
+# url1 = "https://colonist.io/api/profile/GrandDude"
+# url2 = "https://colonist.io/api/profile/aodugnubqanifs"
+# site = requests.get(url1, cookies = cookie)
+# print(site.status_code)
+# print(site)
+# site = requests.get(url2, cookies = cookie)
+# print(site.status_code)
+# print(site)
 
 
 

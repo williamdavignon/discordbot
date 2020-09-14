@@ -1,6 +1,8 @@
 import discord, os, json
 
-token = "NzUxNDM3Mzc4ODk1MzQ3NzYz.X1JEmA.vsQv47irDSyMFpk8ZyHRvKHzJiM"
+with open("token.txt", "r") as tokenfile:
+    for line in tokenfile:
+        token = line
 client = discord.Client()
 server = "745059328674758688"
 bot = client
