@@ -1,0 +1,8 @@
+{
+“name”: “greeter-bot”,
+“version”: “1.0.0”,
+“description”: “Statistiques Catanesque”,
+“main”: “bot.js”,
+“author”: “William d'Avignon”,
+“dependencies”: {}
+}

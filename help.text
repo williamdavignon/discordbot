@@ -1,0 +1,6 @@
+Salut!
+Liste de commande pour l'instant:
+Pour voir les stats globales: !catan overall
+Pour comparer deux joueurs: !catan comp ""joueur1"" ""joueur2"""
+Liste des joueurs: !catan users
+Ajouter/retirer des joueurs: !catan user add/remove "joueur"  (Utiliser le nom colonist.io, sensible à la CASE)
