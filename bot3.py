@@ -95,21 +95,51 @@ async def on_message(message):
 
         if message.content.startswith("!catan overall"):
             x = 0
-            await message.channel.send("Statisque de la ligue Catanesque Grand Dude Extravaganza")
-            await message.channel.send(" Utilisateur         V     PJ     PTS     %")
+            # await message.channel.send("Statisque de la ligue Catanesque Grand Dude Extravaganza")
+            # await message.channel.send("`╔═══════════════════════════════════════════════╗`")
+            # await message.channel.send("`║Utilisateur         V    PJ   PTS  %      PPP  ║`")
+            await message.channel.send("Deux secs sera pas long")
+            lines = []
+            lines.append("STATISQUES GÉNÉRALES DES BOYS")
+            lines.append("╔═══════════════════════════════════════════════════╗")
+            lines.append("║Utilisateur         V     PJ    PTS   %      PPP   ║")
             for user in users:
-                url2 = url + user
+                # url2 = url + user
                 # print(url2)
-                site = requests.get(url2, cookies = cookie)
+                site = requests.get(url + user, cookies = cookie)
                 if site.status_code == 200:
+                    print(site.status_code)
                     # print(site.text)
                     data = site.json()
-                    v = data["totalWins"]
-                    pj = data["totalGames"]
-                    pts = data["totalPoints"]
-                    pourc = v/pj*100
-                    pourc = str(pourc)
-                    pourc = pourc[0:4]
+
+                    # Legacy:
+                    # v = str(data["totalWins"])
+                    # pj = str(data["totalGames"])
+                    # pts = str(data["totalPoints"])
+
+                    # current:
+                    v = str(data["winsInLast100Games"])
+                    pj = str(data["totalGames"])
+                    pts = str(data["pointsPerGame"])
+
+                    pourc = str(data["winPercent"])
+                    pourc = pourc[0:4] #wut
+                    ppp = str(data["pointsPerGame"])
+                    games = data["gameDatas"]
+                    ttlrank= 0
+                    ttlgames = 0
+                    #me rappelle plus ça fait quoi ça:
+                    # for game in games:
+                    #     ttlgames += 1
+                    #     for player in game["players"]:
+                    #         if player["username"] == user:
+                    #             ttlrank += int(player["rank"])
+                    #             rk = str(ttlrank/ttlgames)
+                    #             rk = rk[0:4]
+                    lenpourc = 0
+                    if len(pourc) == 3: #wut
+                        lenpourc = 1
+
                     # espace = "-" * (18 - len(user))
                     # print(data)
                     # print(type(data)) 
@@ -118,12 +148,26 @@ async def on_message(message):
                     # print("Parties jouées:"+ str(pj))
                     # print("Points totals:"+str(pts))
                     # print("Ratio de victoire " + str(pourc))
-                    await message.channel.send( formatage[x] + str(v) + "    " + str(pj) +"    " +str(pts) + "    " +str(pourc)) 
+                    userf = " "*(20 - len(user))
+                    spc = 6
+                    line = "║" + user + userf + v + " "*(spc-len(v)) + pj +" "*(spc-len(pj)) + pts + " "*(spc-len(pts))+ pourc + " "*lenpourc + "   " + ppp + " "*(spc-len(ppp)) + "║"
+                    # await message.channel.send("`║" + user + userf + v + " "*(spc-len(v)) + pj +" "*(spc-len(pj)) + pts + " "*(spc-len(pts))+ pourc + " "*lenpourc + "   "+ ppp+ " ║`") 
                     x += 1  
+                    lines.append(line)
+                    print(line)
+                    # print(lines)
                 else: 
+                    print(site.status_code)
                     await message.channel.send(user + " n'est pas reconnu.")
                     print(user + " n'est pas reconnu.")
                     x += 1
+            # await message.channel.send("`╚═══════════════════════════════════════════════╝`")
+            lines.append("╚═══════════════════════════════════════════════════╝")
+            print("\n".join(lines))
+            lines = "\n".join(lines)
+            print("*"*10)
+            print("```" + str(lines) + "```")
+            await message.channel.send("```" + str(lines) + "```")
                 #fin overall stats
 
 
@@ -174,7 +218,7 @@ async def on_message(message):
             print(str(totalpts1) + "   " + str(totalpts2))
             # print(joueur1 + "wins" + str(total1) + "    " + joueur2 + "wins" + str(total2))
             if total1 == total2:
-                print(joueur1 + " et " + joueur2 + "sont littéralement à égalité l'un contre l'autre, avec chacun "+ str(total1) + "victoires contre l'autre.")
+                print(joueur1 + " et " + joueur2 + " sont littéralement à égalité l'un contre l'autre, avec chacun "+ str(total1) + " victoires contre l'autre.")
                 await message.channel.send(joueur1 + " et " + joueur2 + "sont littéralement à égalité l'un contre l'autre, avec chacun "+ str(total1) + "victoires contre l'autre.")
             if total1 > total2:
                 print(joueur1 + " a scoré " + str(totalpts1) + " points contre " + joueur2 + ", qui en a scoré " + str(totalpts2)+".")

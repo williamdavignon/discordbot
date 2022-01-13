@@ -10,12 +10,32 @@ cookie = {"cookie": """Indicative_a38719f2-d919-446b-b2e3-0da55a22a29a="%7B%22de
 # print(x[3])
 # x = x[3]
 
-# token test
-with open("token.txt", "r") as tokenfile:
-    for line in tokenfile:
-        token = line
+#any() test
+# ls = [0,1,2,3,4]
+# x = any(ls)
+# print(x)
 
-print(token)
+# #list 2 items checker
+
+# a = [1, 2, 3, 4, 5, 6, 7] 
+# b = [5, 6, 7, 8, 9] 
+# a_set = set(a) 
+# b_set = set(b) 
+# x = a_set.intersection(b_set)
+# print(x)
+# print((len(x)))
+
+
+
+
+
+
+# # token test
+# with open("token.txt", "r") as tokenfile:
+#     for line in tokenfile:
+#         token = line
+
+# print(token)
 
 
 # status code test
@@ -29,7 +49,28 @@ print(token)
 # print(site.status_code)
 # print(site)
 
-
+#test avg rank
+url1 = "https://colonist.io/api/profile/GrandDude"
+url2 = "https://colonist.io/api/profile/aodugnubqanifs"
+site = requests.get(url1, cookies = cookie)
+# print(site.status_code)
+# print(site)
+# site = requests.get(url2, cookies = cookie)
+# print(site.status_code)
+# print(site)
+user = "GrandDude"
+data = site.json()
+games = data["gameDatas"]
+ttlrank= 0
+ttlgames = 0
+for game in games:
+    ttlgames += 1
+    for player in game["players"]:
+        if player["username"] == user:
+            ttlrank += int(player["rank"])
+            avgrank = ttlrank/ttlgames
+print(ttlrank)
+print(avgrank)
 
 
 # #print help
